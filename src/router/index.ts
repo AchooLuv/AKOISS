@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
 const Home = () => import('@/views/Home/Home.vue')
+const NotFound = () => import('@/views/404/NotFound.vue')
 
 declare module 'vue-router' {
   interface RouteMeta {
@@ -18,6 +19,15 @@ const routes: Array<RouteRecordRaw> = [
     name: 'home',
     component: Home
   },
+  {
+    path: '/404',
+    name: 'notFound',
+    component: NotFound
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    redirect: '/404'
+  }
 ]
 
 const router = createRouter({

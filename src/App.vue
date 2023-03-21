@@ -7,4 +7,5 @@
 
 <style lang="scss">
 @import '@/assets/styles/reset.scss';
+@import '@/assets/styles/common.scss';
 </style>

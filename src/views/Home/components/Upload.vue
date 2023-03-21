@@ -1,30 +1,40 @@
 <script setup lang="ts">
-import { ref, reactive } from 'vue'
+import { ref } from 'vue'
+import { useSearchStore } from '@/stores/search'
 import type { UploadFile, UploadFiles } from 'element-plus'
-
 // 测试用例
 import { testStr } from '@/test'
 
-const upUrl = ref('https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15')
-const form = reactive({
-  img: ''
-})
-
+// store
+const searchStore = useSearchStore()
+// ref
+const imgSrc = ref<ArrayBuffer | string | null>('')
+// methods
 const handleOnChange = (uploadFile: UploadFile, uploadFiles: UploadFiles): void => {
-  if (typeof uploadFile.raw !== 'undefined') {
-    form.img = URL.createObjectURL(uploadFile.raw)
-
+  const raw = uploadFile.raw
+  if (typeof raw !== 'undefined') {
+    // 转base64
+    const reader = new FileReader()
+    reader.readAsDataURL(raw)
+    reader.onload = () => {
+      imgSrc.value = reader.result
+      // 更新searchStore
+      searchStore.updateImgRaw(reader.result)
+    }
+    // imgSrc.value = URL.createObjectURL(uploadFile.raw)
+    // 更新带搜索图片信息
+    // searchStore.updateImgRaw(uploadFile.raw)
     // 测试
-    testStr()
+    // testStr()
   }
 }
-
 </script>
 
 <template>
-  <el-upload class="upload-container" ref="uploadRef" :action="upUrl" :multiple="false" :auto-upload="false"
+  <el-upload class="upload-container" ref="uploadRef" action="#" :multiple="false" :auto-upload="false"
     :show-file-list="false" drag accept=".jpg,.jpeg,.png,.JPG,.JPEG,.gif,.GIF" :on-change="handleOnChange">
-    <el-image v-if="form.img" :src="form.img" style="width:220px;height: 220px;" alt="preview-img" fit="scale-down" />
+    <el-image v-if="imgSrc" :src="imgSrc as string" style="width:220px;height: 220px;" alt="preview-img"
+      fit="scale-down" />
     <div v-else class="inner-container">
       <el-icon class="el-icon--upload"><upload-filled /></el-icon>
       <div class="el-upload__text">

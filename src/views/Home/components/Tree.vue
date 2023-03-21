@@ -1,93 +1,109 @@
 <script setup lang="ts">
-import type Node from 'element-plus/es/components/tree/src/model/node'
-import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type';
 import { ref } from 'vue';
+import { useTreeStore } from '@/stores/tree'
+import { useSearchStore } from '@/stores/search'
+import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type';
 
 interface Tree {
-  id: number
+  id: string
   label: string
-  isPenultimate?: boolean
   children?: Tree[]
 }
-
+// store
+const treeStore = useTreeStore()
+const searchStore = useSearchStore()
+// ref
 const isDisabled = ref(true)
-
-
+const treeRef = ref()
 const data: Tree[] = [
   {
-    id: 1,
+    id: 'iqdb',
     label: 'IQDB',
     children: [
       {
-        id: 11,
+        id: 'iqdb-1',
         label: '搜索时除去颜色',
       }
     ]
   },
   {
-    id: 2,
-    label: 'ASCII2D', // 单选
-    isPenultimate: true,
+    id: 'ascii2d',
+    label: 'ASCII2D',
     children: [
       {
-        id: 21,
+        id: 'ascii2d-1',
         label: '按色彩检索',
       }, {
-        id: 22,
+        id: 'ascii2d-2',
         label: '按特征检索',
       }
     ]
   },
   {
-    id: 3,
-    label: 'EHENTAI', //多选
-    isPenultimate: true,
+    id: 'ehentai',
+    label: 'EHENTAI',
     children: [
       {
-        id: 31,
+        id: 'ehentai-1',
         label: '搜索相似内容',
       }, {
-        id: 32,
+        id: 'ehentai-2',
         label: '搜索封面',
       }, {
-        id: 33,
+        id: 'ehentai-3',
         label: '搜索已删除的内容',
       },
     ]
   },
   {
-    id: 4,
+    id: 'saucenao',
     label: 'SAUCENAO',
     children: [
       {
-        id: 41,
+        id: 'saucenao-1',
         label: '隐藏敏感内容',
       }
     ]
   },
   {
-    id: 5,
+    id: 'tracemoe',
     label: 'TRACEMOE',
     children: [
       {
-        id: 51,
+        id: 'tracemoe-1',
         label: '裁剪图片边缘',
       }
     ]
   }
 ]
-
-const customNodeClass = (data: TreeNodeData, node: Node) => {
-  if (data.isPenultimate) {
-    return 'is-penultimate'
+// methods
+const handleChecked = (node: Tree, checked: TreeNodeData) => {
+  // 一级菜单单选，二级多选
+  const id = node.id
+  const isParent = !!node.children
+  let keys = checked.checkedKeys
+  const isChecked = keys.includes(id)
+  if (isParent && isChecked) {
+    treeRef.value.setCheckedKeys([id])
+  } else if (isParent && !isChecked) {
+    treeRef.value.setCheckedKeys(keys = [])
+  } else if (!isParent && isChecked) {
+    const parent = id.split('-')[0]
+    if (!keys.includes(parent)) keys.unshift(parent)
+    const isNew = keys.every((str: string) => str.includes(parent))
+    if (!isNew) keys = [parent, id]
+    // console.log(parent, id, keys)
+    treeRef.value.setCheckedKeys(keys)
   }
-  return 'not-penultimate'
+  // 数据处理
+  isDisabled.value = !keys.length || !searchStore.imgRaw
 }
 </script>
 
 <template>
   <el-divider content-position="left">选择搜索引擎：</el-divider>
-  <el-tree :data="data" show-checkbox node-key="id" accordion :props="{ class: customNodeClass }" />
+  <el-tree ref="treeRef" :data="data" show-checkbox node-key="id" check-strictly check-on-click-node highlight-current
+    accordion @check="handleChecked" />
   <el-button class="query-button" size="small" color="#626aef" :disabled="isDisabled">搜索<el-icon>
       <PictureFilled />
     </el-icon></el-button>
@@ -98,17 +114,30 @@ const customNodeClass = (data: TreeNodeData, node: Node) => {
   margin-top: 6px;
 }
 
-.is-penultimate>.el-tree-node__content {
-  color: #626aef;
+.el-tree-node {
+  >.el-tree-node__children {
+    display: flex;
+    flex-direction: row;
+  }
+
+  >.el-tree-node__children>div {
+    width: 25%;
+  }
 }
 
-.el-tree-node.is-expanded.is-penultimate>.el-tree-node__children {
-  display: flex;
-  flex-direction: row;
-}
+.el-tree-node.is-expanded {
+  >.el-tree-node__content {
+    color: #626aef;
+  }
 
-.is-penultimate>.el-tree-node__children>div {
-  width: 25%;
+  >.el-tree-node__children {
+    display: flex;
+    flex-direction: row;
+  }
+
+  >.el-tree-node__children>div {
+    width: 25%;
+  }
 }
 
 .query-button {
