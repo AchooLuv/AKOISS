@@ -1,14 +1,18 @@
 <script setup lang="ts">
 import UploadImage from '@/views/Home/components/Upload.vue'
 import TreeSeclet from '@/views/Home/components/Tree.vue'
+import ResultView from '@/views/Home/components/Result.vue'
+import { useResultStore } from '@/stores/result'
 
+const resultStore = useResultStore()
+const imgSrc = new URL('@/assets/images/noData.jpg', import.meta.url).href
 </script>
 
 <template>
   <el-container>
     <el-header>Header</el-header>
     <el-main>
-      <el-row class="row-bg" justify="center">
+      <el-row justify="center" v-loading="resultStore.isLoading">
         <el-col :span="5">
           <upload-image />
         </el-col>
@@ -25,6 +29,14 @@ import TreeSeclet from '@/views/Home/components/Tree.vue'
           <CaretRight />
         </el-icon>
       </el-divider>
+      <el-row justify="center" v-loading="resultStore.isLoading" style="height: calc(100% - 255px); overflow-y: auto;">
+        <el-col :span="13">
+          <div v-if="resultStore.resultState.length">
+            <result-view />
+          </div>
+          <el-empty v-else :image="imgSrc" :image-size="200" description="暂 无 数 据" />
+        </el-col>
+      </el-row>
     </el-main>
   </el-container>
 </template>
@@ -33,23 +45,18 @@ import TreeSeclet from '@/views/Home/components/Tree.vue'
 .el-container {
   width: 100vw;
   height: 100vh;
+
   // overflow: hidden;
-}
+  .el-main {
+    overflow: hidden;
 
-.el-row {
-  margin-bottom: 20px;
-}
+    .el-row:first-child {
+      margin-bottom: 20px;
 
-.el-row:last-child {
-  margin-bottom: 0;
-}
-
-.el-col {
-  border-radius: 4px;
-}
-
-.grid-content {
-  border-radius: 4px;
-  min-height: 36px;
+      .el-col {
+        padding: 5px;
+      }
+    }
+  }
 }
 </style>

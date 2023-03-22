@@ -77,3 +77,90 @@ export const treeData: Tree[] = [
     ]
   }
 ]
+
+export type TraceMoeResponse = {
+  anilist?: number;
+  filename: string;
+  episode: null | number;
+  from: number;
+  to: number;
+  similarity: number;
+  video: string;
+  image: string;
+}[]
+
+
+export const resultData: TraceMoeResponse = [
+  {
+    "anilist": 101167,
+    "filename": "Dungeon ni Deai o Motomeru no wa Machigatte Iru Darouka Familia Myth II - 01 (BD 1280x720 x264 AACx2).mp4",
+    "episode": 1,
+    "from": 908.42,
+    "to": 911.25,
+    "similarity": 0.7372974378330136,
+    "video": "https://media.trace.moe/video/101167/Dungeon%20ni%20Deai%20o%20Motomeru%20no%20wa%20Machigatte%20Iru%20Darouka%20Familia%20Myth%20II%20-%2001%20(BD%201280x720%20x264%20AACx2).mp4?t=909.835&now=1679497200&token=0NYhxzvaORRoP4koC2GCr0JOgI",
+    "image": "https://media.trace.moe/image/101167/Dungeon%20ni%20Deai%20o%20Motomeru%20no%20wa%20Machigatte%20Iru%20Darouka%20Familia%20Myth%20II%20-%2001%20(BD%201280x720%20x264%20AACx2).mp4.jpg?t=909.835&now=1679497200&token=yYWbNQoxhmskzDNlSyqXTSo0ho"
+  }, {
+    "anilist": 28,
+    "filename": "[YAKITATE_JAPAN][DVDRIP][20].mp4",
+    "episode": 20,
+    "from": 355.33,
+    "to": 356.67,
+    "similarity": 0.7378829544568507,
+    "video": "https://media.trace.moe/video/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4?t=356&now=1679497200&token=QciLkTshvPV2kV1HNvKVXLmRgKs",
+    "image": "https://media.trace.moe/image/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4.jpg?t=356&now=1679497200&token=djRJZp3BnaSRvIMut8BwnwjdKsc"
+  }, {
+    "anilist": 28,
+    "filename": "[YAKITATE_JAPAN][DVDRIP][20].mp4",
+    "episode": 20,
+    "from": 355.33,
+    "to": 356.67,
+    "similarity": 0.7378829544568507,
+    "video": "https://media.trace.moe/video/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4?t=356&now=1679497200&token=QciLkTshvPV2kV1HNvKVXLmRgKs",
+    "image": "https://media.trace.moe/image/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4.jpg?t=356&now=1679497200&token=djRJZp3BnaSRvIMut8BwnwjdKsc"
+  }, {
+    "anilist": 28,
+    "filename": "[YAKITATE_JAPAN][DVDRIP][20].mp4",
+    "episode": 20,
+    "from": 355.33,
+    "to": 356.67,
+    "similarity": 0.7378829544568507,
+    "video": "https://media.trace.moe/video/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4?t=356&now=1679497200&token=QciLkTshvPV2kV1HNvKVXLmRgKs",
+    "image": "https://media.trace.moe/image/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4.jpg?t=356&now=1679497200&token=djRJZp3BnaSRvIMut8BwnwjdKsc"
+  }, {
+    "anilist": 28,
+    "filename": "[YAKITATE_JAPAN][DVDRIP][20].mp4",
+    "episode": 20,
+    "from": 355.33,
+    "to": 356.67,
+    "similarity": 0.7378829544568507,
+    "video": "https://media.trace.moe/video/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4?t=356&now=1679497200&token=QciLkTshvPV2kV1HNvKVXLmRgKs",
+    "image": "https://media.trace.moe/image/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4.jpg?t=356&now=1679497200&token=djRJZp3BnaSRvIMut8BwnwjdKsc"
+  }, {
+    "anilist": 28,
+    "filename": "[YAKITATE_JAPAN][DVDRIP][20].mp4",
+    "episode": 20,
+    "from": 355.33,
+    "to": 356.67,
+    "similarity": 0.7378829544568507,
+    "video": "https://media.trace.moe/video/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4?t=356&now=1679497200&token=QciLkTshvPV2kV1HNvKVXLmRgKs",
+    "image": "https://media.trace.moe/image/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4.jpg?t=356&now=1679497200&token=djRJZp3BnaSRvIMut8BwnwjdKsc"
+  }, {
+    "anilist": 28,
+    "filename": "[YAKITATE_JAPAN][DVDRIP][20].mp4",
+    "episode": 20,
+    "from": 355.33,
+    "to": 356.67,
+    "similarity": 0.7378829544568507,
+    "video": "https://media.trace.moe/video/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4?t=356&now=1679497200&token=QciLkTshvPV2kV1HNvKVXLmRgKs",
+    "image": "https://media.trace.moe/image/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4.jpg?t=356&now=1679497200&token=djRJZp3BnaSRvIMut8BwnwjdKsc"
+  }, {
+    "anilist": 28,
+    "filename": "[YAKITATE_JAPAN][DVDRIP][20].mp4",
+    "episode": 20,
+    "from": 355.33,
+    "to": 356.67,
+    "similarity": 0.7378829544568507,
+    "video": "https://media.trace.moe/video/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4?t=356&now=1679497200&token=QciLkTshvPV2kV1HNvKVXLmRgKs",
+    "image": "https://media.trace.moe/image/28/%5BYAKITATE_JAPAN%5D%5BDVDRIP%5D%5B20%5D.mp4.jpg?t=356&now=1679497200&token=djRJZp3BnaSRvIMut8BwnwjdKsc"
+  }]

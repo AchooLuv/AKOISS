@@ -1,12 +1,14 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { treeData } from '@/const/treeData'
+import { useResultStore } from '@/stores/result'
 import { useSearchStore } from '@/stores/search'
 import type { Tree } from '@/const/treeData'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 
 // store
 const searchStore = useSearchStore()
+const resultStore = useResultStore()
 // ref
 const isDisabled = ref(true)
 const treeRef = ref()
@@ -33,10 +35,15 @@ const handleChecked = (node: Tree, checked: TreeNodeData) => {
   isDisabled.value = !keys.length || !searchStore.imgRaw
 }
 const handleSearch = () => {
+  resultStore.isLoading = true
   // 转blob
   const image = new Blob([searchStore.imgRaw as BlobPart], { type: searchStore.imgType })
 
-  const res = searchStore.searchAction('/', { image }, { headers: { 'Content-Type': 'multipart/form-data' } })
+  searchStore.searchAction('/', { image }, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
+    if (res.status === 200) {
+      resultStore.updateResultState(res.data.result)
+    }
+  }).finally(() => resultStore.isLoading = false)
 }
 </script>
 
@@ -44,7 +51,7 @@ const handleSearch = () => {
   <el-divider content-position="left">选择搜索引擎：</el-divider>
   <el-tree ref="treeRef" :data="treeData" show-checkbox node-key="id" check-strictly check-on-click-node highlight-current
     accordion :default-expanded-keys="['tracemoe']" @check="handleChecked" />
-  <el-button class="query-button" size="small" color="#626aef" :disabled="isDisabled"
+  <el-button class="query-button" size="small" color="#3a0ca3" :disabled="isDisabled"
     @click.stop="handleSearch">搜索<el-icon>
       <PictureFilled />
     </el-icon></el-button>
@@ -83,8 +90,9 @@ const handleSearch = () => {
 
 .query-button {
   position: absolute;
-  right: 50%;
-  bottom: 0;
+  left: 50%;
+  bottom: 5px;
   letter-spacing: 3px;
+  transform: translateX(-50%);
 }
 </style>
