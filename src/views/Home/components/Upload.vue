@@ -2,8 +2,6 @@
 import { ref } from 'vue'
 import { useSearchStore } from '@/stores/search'
 import type { UploadFile, UploadFiles } from 'element-plus'
-// 测试用例
-import { testStr } from '@/test'
 
 // store
 const searchStore = useSearchStore()
@@ -13,19 +11,9 @@ const imgSrc = ref<ArrayBuffer | string | null>('')
 const handleOnChange = (uploadFile: UploadFile, uploadFiles: UploadFiles): void => {
   const raw = uploadFile.raw
   if (typeof raw !== 'undefined') {
-    // 转base64
-    const reader = new FileReader()
-    reader.readAsDataURL(raw)
-    reader.onload = () => {
-      imgSrc.value = reader.result
-      // 更新searchStore
-      searchStore.updateImgRaw(reader.result)
-    }
-    // imgSrc.value = URL.createObjectURL(uploadFile.raw)
+    imgSrc.value = URL.createObjectURL(raw)
     // 更新带搜索图片信息
-    // searchStore.updateImgRaw(uploadFile.raw)
-    // 测试
-    // testStr()
+    searchStore.updateImgRaw(raw, raw.type)
   }
 }
 </script>

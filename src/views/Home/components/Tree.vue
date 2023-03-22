@@ -1,81 +1,16 @@
 <script setup lang="ts">
-import { ref } from 'vue';
-import { useTreeStore } from '@/stores/tree'
+import { ref } from 'vue'
+import { treeData } from '@/const/treeData'
 import { useSearchStore } from '@/stores/search'
-import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type';
+import type { Tree } from '@/const/treeData'
+import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 
-interface Tree {
-  id: string
-  label: string
-  children?: Tree[]
-}
 // store
-const treeStore = useTreeStore()
 const searchStore = useSearchStore()
 // ref
 const isDisabled = ref(true)
 const treeRef = ref()
-const data: Tree[] = [
-  {
-    id: 'iqdb',
-    label: 'IQDB',
-    children: [
-      {
-        id: 'iqdb-1',
-        label: '搜索时除去颜色',
-      }
-    ]
-  },
-  {
-    id: 'ascii2d',
-    label: 'ASCII2D',
-    children: [
-      {
-        id: 'ascii2d-1',
-        label: '按色彩检索',
-      }, {
-        id: 'ascii2d-2',
-        label: '按特征检索',
-      }
-    ]
-  },
-  {
-    id: 'ehentai',
-    label: 'EHENTAI',
-    children: [
-      {
-        id: 'ehentai-1',
-        label: '搜索相似内容',
-      }, {
-        id: 'ehentai-2',
-        label: '搜索封面',
-      }, {
-        id: 'ehentai-3',
-        label: '搜索已删除的内容',
-      },
-    ]
-  },
-  {
-    id: 'saucenao',
-    label: 'SAUCENAO',
-    children: [
-      {
-        id: 'saucenao-1',
-        label: '隐藏敏感内容',
-      }
-    ]
-  },
-  {
-    id: 'tracemoe',
-    label: 'TRACEMOE',
-    children: [
-      {
-        id: 'tracemoe-1',
-        label: '裁剪图片边缘',
-      }
-    ]
-  }
-]
+
 // methods
 const handleChecked = (node: Tree, checked: TreeNodeData) => {
   // 一级菜单单选，二级多选
@@ -92,19 +27,25 @@ const handleChecked = (node: Tree, checked: TreeNodeData) => {
     if (!keys.includes(parent)) keys.unshift(parent)
     const isNew = keys.every((str: string) => str.includes(parent))
     if (!isNew) keys = [parent, id]
-    // console.log(parent, id, keys)
     treeRef.value.setCheckedKeys(keys)
   }
   // 数据处理
   isDisabled.value = !keys.length || !searchStore.imgRaw
 }
+const handleSearch = () => {
+  // 转blob
+  const image = new Blob([searchStore.imgRaw as BlobPart], { type: searchStore.imgType })
+
+  const res = searchStore.searchAction('/', { image }, { headers: { 'Content-Type': 'multipart/form-data' } })
+}
 </script>
 
 <template>
   <el-divider content-position="left">选择搜索引擎：</el-divider>
-  <el-tree ref="treeRef" :data="data" show-checkbox node-key="id" check-strictly check-on-click-node highlight-current
-    accordion @check="handleChecked" />
-  <el-button class="query-button" size="small" color="#626aef" :disabled="isDisabled">搜索<el-icon>
+  <el-tree ref="treeRef" :data="treeData" show-checkbox node-key="id" check-strictly check-on-click-node highlight-current
+    accordion :default-expanded-keys="['tracemoe']" @check="handleChecked" />
+  <el-button class="query-button" size="small" color="#626aef" :disabled="isDisabled"
+    @click.stop="handleSearch">搜索<el-icon>
       <PictureFilled />
     </el-icon></el-button>
 </template>

@@ -2,8 +2,8 @@ import axios from 'axios'
 import type { AxiosRequestConfig, AxiosResponse } from 'axios'
 
 const http = axios.create({
-  baseURL: '',
-  timeout: 3000
+  baseURL: import.meta.env.VITE_BASE_URL,
+  timeout: 50000
 })
 
 // 请求拦截器
@@ -26,7 +26,7 @@ interface Data {
 
 interface Http {
   get: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  post: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
+  post: (url: string, data?: Data | FormData, config?: AxiosRequestConfig) => Promise<AxiosResponse>
   put: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
   patch: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
   delete: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
