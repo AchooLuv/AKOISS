@@ -29,14 +29,16 @@ const imgSrc = new URL('@/assets/images/noData.jpg', import.meta.url).href
           <CaretRight />
         </el-icon>
       </el-divider>
-      <el-row justify="center" v-loading="resultStore.isLoading" style="height: calc(100% - 255px); overflow-y: auto;">
-        <el-col :span="13">
-          <div v-if="resultStore.resultState.length">
-            <result-view />
-          </div>
-          <el-empty v-else :image="imgSrc" :image-size="200" description="暂 无 数 据" />
-        </el-col>
-      </el-row>
+      <el-scrollbar style="height: calc(100% - 255px);" :noresize="true">
+        <el-row justify="center" v-loading="resultStore.isLoading">
+          <el-col :span="13">
+            <div v-if="resultStore.resultState.length">
+              <result-view />
+            </div>
+            <el-empty v-else :image="imgSrc" :image-size="200" description="暂 无 数 据" />
+          </el-col>
+        </el-row>
+      </el-scrollbar>
     </el-main>
   </el-container>
 </template>

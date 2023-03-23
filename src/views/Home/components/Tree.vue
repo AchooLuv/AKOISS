@@ -1,9 +1,11 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { treeData } from '@/const/treeData'
+import { treeData, aniDB } from '@/const/treeData'
+// import aniDB from '@/const/treeData'
+import { tipsType } from '@/const/format'
 import { useResultStore } from '@/stores/result'
 import { useSearchStore } from '@/stores/search'
-import type { Tree } from '@/const/treeData'
+import type { Tree, ResultType } from '@/const/treeData'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 
 // store
@@ -34,16 +36,25 @@ const handleChecked = (node: Tree, checked: TreeNodeData) => {
   // 数据处理
   isDisabled.value = !keys.length || !searchStore.imgRaw
 }
-const handleSearch = () => {
+
+const handleSearch = async () => {
   resultStore.isLoading = true
   // 转blob
-  const image = new Blob([searchStore.imgRaw as BlobPart], { type: searchStore.imgType })
-
-  searchStore.searchAction('/', { image }, { headers: { 'Content-Type': 'multipart/form-data' } }).then(res => {
-    if (res.status === 200) {
-      resultStore.updateResultState(res.data.result)
-    }
-  }).finally(() => resultStore.isLoading = false)
+  const image = new Blob([searchStore.imgRaw as BlobPart], { type: searchStore.imgType }),
+    res = await searchStore.searchAction('/search', { image }, { headers: { 'Content-Type': 'multipart/form-data' } })
+  if (res.status === 200) {
+    const data = res.data.result.filter((v: ResultType) => {
+      if (v.similarity > 0.9) {
+        v.aniname = aniDB.get(v.anilist)
+        return v.similarity > 0.9
+      }
+    })
+    resultStore.updateResultState(data)
+    tipsType()
+  } else {
+    tipsType(false)
+  }
+  resultStore.isLoading = false
 }
 </script>
 

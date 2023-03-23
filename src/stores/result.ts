@@ -20,15 +20,7 @@ export type TraceMoeResponse = {
 
 export const useResultStore = defineStore('rews', () => {
   const isLoading = ref(false)
-  const resultState = reactive<TraceMoeResponse>([{
-    filename: '',
-    episode: 0,
-    from: 0,
-    to: 0,
-    similarity: 0,
-    video: '',
-    image: '',
-  }])
+  const resultState = reactive<TraceMoeResponse>([])
   function updateResultState(payload: TraceMoeResponse) {
     resultState.splice(0, 1, ...payload)
   }
