@@ -9,7 +9,7 @@ const imgSrc = new URL('@/assets/images/404.png', import.meta.url).href
     </div>
     <p>未找到对应页面</p>
     <router-link to="/">
-      <el-button type="primary" size="small" color="#626aef" auto-insert-space>首页</el-button>
+      <el-button type="primary" size="small" color="#626aef" auto-insert-space>返回</el-button>
     </router-link>
   </div>
 </template>

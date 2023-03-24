@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-const Home = () => import('@/views/Home/Home.vue')
+const Home = () => import('@/views/Home/Main.vue')
 const NotFound = () => import('@/views/404/NotFound.vue')
 
 declare module 'vue-router' {
@@ -17,7 +17,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
     name: 'home',
-    component: Home
+    component: Home,
   },
   {
     path: '/404',

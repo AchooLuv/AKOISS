@@ -14,8 +14,12 @@
     }
   }
 
-
   p {
     margin: 30px 0;
   }
+}
+
+.el-popper .el-popper__arrow::before {
+  background: linear-gradient(45deg, #b2e68d, #bce689);
+  right: 0;
 }

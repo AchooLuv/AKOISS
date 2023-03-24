@@ -14,6 +14,7 @@ const resultStore = useResultStore()
 // ref
 const isDisabled = ref(true)
 const treeRef = ref()
+let paramsArr = [] as string[]
 
 // methods
 const handleChecked = (node: Tree, checked: TreeNodeData) => {
@@ -34,6 +35,7 @@ const handleChecked = (node: Tree, checked: TreeNodeData) => {
     treeRef.value.setCheckedKeys(keys)
   }
   // 数据处理
+  if (keys.length > 1) paramsArr = keys.slice(1).map((v: string) => v.split('-')[1])
   isDisabled.value = !keys.length || !searchStore.imgRaw
 }
 
@@ -41,12 +43,15 @@ const handleSearch = async () => {
   resultStore.isLoading = true
   // 转blob
   const image = new Blob([searchStore.imgRaw as BlobPart], { type: searchStore.imgType }),
-    res = await searchStore.searchAction('/search', { image }, { headers: { 'Content-Type': 'multipart/form-data' } })
+    res = await searchStore.searchAction('/search', { image }, {
+      params: { cutBorders: paramsArr.includes('cutBorders') },
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
   if (res.status === 200) {
     const data = res.data.result.filter((v: ResultType) => {
-      if (v.similarity > 0.9) {
+      if (v.similarity > 0.8) {
         v.aniname = aniDB.get(v.anilist)
-        return v.similarity > 0.9
+        return v.similarity > 0.8
       }
     })
     resultStore.updateResultState(data)

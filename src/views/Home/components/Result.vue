@@ -33,7 +33,6 @@ const resultStore = useResultStore()
           </el-descriptions>
         </el-col>
       </el-row>
-
     </el-card>
   </el-space>
 </template>

@@ -5,6 +5,40 @@ export interface Tree {
   children?: Tree[]
 }
 
+type TipData = {
+  type: string,
+  feature: string,
+  status: boolean
+}[]
+
+export const tipData: TipData = [
+  {
+    type: 'IQDB',
+    feature: '*',
+    status: false
+  },
+  {
+    type: 'ASCII2D',
+    feature: '二次元、pixiv',
+    status: false
+  },
+  {
+    type: 'EHENTAI',
+    feature: '本子',
+    status: false
+  },
+  {
+    type: 'TRACEMOE',
+    feature: '番剧',
+    status: true
+  },
+  {
+    type: 'SAUCENAO',
+    feature: '*',
+    status: false
+  },
+]
+
 export const treeData: Tree[] = [
   {
     id: 'iqdb',
@@ -59,7 +93,7 @@ export const treeData: Tree[] = [
     label: 'TRACEMOE',
     children: [
       {
-        id: 'tracemoe-1',
+        id: 'tracemoe-cutBorders',
         label: '裁剪图片边缘',
       }
     ]
