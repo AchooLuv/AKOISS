@@ -1,6 +1,6 @@
-import ako from "@/utils/http"
-import { ref } from "vue"
-import { defineStore } from "pinia"
+import ako from '@/utils/http'
+import { ref } from 'vue'
+import { defineStore } from 'pinia'
 import type { AxiosRequestConfig } from 'axios'
 
 type DataRaw = Blob | MediaSource | ArrayBuffer | string | null

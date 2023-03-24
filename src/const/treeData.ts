@@ -114,7 +114,7 @@ export const treeData: Tree[] = [
 
 export type ResultType = {
   anilist: number;
-  aniname: string,
+  aniname?: string,
   filename: string;
   episode: null | number;
   from: number;

@@ -2,7 +2,14 @@
 import { useResultStore } from '@/stores/result'
 import { getHMS, getPercent } from '@/const/format'
 
+// store
 const resultStore = useResultStore()
+
+const handleAniInfos = async (name: string) => {
+  const res = await resultStore.animeAction('/v0/search/subjects', { keyword: name }, {
+    params: { limit: 10, offset: 0 }
+  })
+}
 </script>
 
 <template>
@@ -11,7 +18,7 @@ const resultStore = useResultStore()
       <template #header>
         <div class="card-header">
           <el-text size="large">{{ ele.filename }}</el-text>
-          <el-button type="primary" color="#5a189a"><el-icon>
+          <el-button type="primary" color="#5a189a" @click.stop="handleAniInfos(ele.aniname as string)"><el-icon>
               <Link />
             </el-icon>Bangumi</el-button>
         </div>

@@ -1,59 +1,122 @@
-import axios from 'axios'
-import type { AxiosRequestConfig, AxiosResponse } from 'axios'
+import axios from 'axios';
+import { tipsType } from '@/const/format'
+import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, AxiosResponse } from 'axios'
 
-const http = axios.create({
-  baseURL: import.meta.env.VITE_BASE_URL,
-  timeout: 50000
-})
+type Result<T> = {
+  code: number;
+  message: string;
+  result: T;
+};
 
-// 请求拦截器
-http.interceptors.request.use(function (config) {
-  return config;
-}, function (error) {
-  return Promise.reject(error);
-});
 
-// 响应拦截器
-http.interceptors.response.use(function (response) {
-  return response;
-}, function (error) {
-  return Promise.reject(error);
-});
+export class Request {
+  instance: AxiosInstance;
+  baseConfig: AxiosRequestConfig = { baseURL: 'https://api.trace.moe', timeout: 60000 };
 
-interface Data {
-  [idx: string]: unknown
-}
+  constructor(config: AxiosRequestConfig) {
+    this.instance = axios.create(Object.assign(this.baseConfig, config));
 
-interface Http {
-  get: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  post: (url: string, data?: Data | FormData, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  put: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  patch: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-  delete: (url: string, data?: Data, config?: AxiosRequestConfig) => Promise<AxiosResponse>
-}
+    this.instance.interceptors.request.use(
+      (config: InternalAxiosRequestConfig) => {
+        return config;
+      },
+      (err: any) => {
+        return Promise.reject(err);
+      }
+    );
 
-const ako: Http = {
-  get(url, data, config) {
-    return http.get(url, {
-      params: data,
-      ...config
-    })
-  },
-  post(url, data, config) {
-    return http.post(url, data, config)
-  },
-  put(url, data, config) {
-    return http.put(url, data, config)
-  },
-  patch(url, data, config) {
-    return http.patch(url, data, config)
-  },
-  delete(url, data, config) {
-    return http.delete(url, {
-      data,
-      ...config
-    })
+    this.instance.interceptors.response.use(
+      (res: AxiosResponse) => {
+        return res;
+      },
+      (err: any) => {
+        let message = '';
+        switch (err.response.status) {
+          case 400:
+            message = '请求错误(400)';
+            break;
+          case 401:
+            message = '未授权，请重新登录(401)';
+            break;
+          case 403:
+            message = '拒绝访问(403)';
+            break;
+          case 404:
+            message = '请求出错(404)';
+            break;
+          case 408:
+            message = '请求超时(408)';
+            break;
+          case 500:
+            message = '服务器错误(500)';
+            break;
+          case 501:
+            message = '服务未实现(501)';
+            break;
+          case 502:
+            message = '网络错误(502)';
+            break;
+          case 503:
+            message = '服务不可用(503)';
+            break;
+          case 504:
+            message = '网络超时(504)';
+            break;
+          case 505:
+            message = 'HTTP版本不受支持(505)';
+            break;
+          default:
+            message = `连接出错(${err.response.status})!`;
+        }
+        tipsType(false, message)
+        return Promise.reject(err.response);
+      }
+    );
+  }
+
+  public request(config: AxiosRequestConfig): Promise<AxiosResponse> {
+    return this.instance.request(config);
+  }
+
+  public get<T = any>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<Result<T>>> {
+    return this.instance.get(url, config);
+  }
+
+  public post<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<Result<T>>> {
+    return this.instance.post(url, data, config);
+  }
+
+  public put<T = any>(
+    url: string,
+    data?: any,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<Result<T>>> {
+    return this.instance.put(url, data, config);
+  }
+
+  public delete<T = any>(
+    url: string,
+    config?: AxiosRequestConfig
+  ): Promise<AxiosResponse<Result<T>>> {
+    return this.instance.delete(url, config);
   }
 }
 
-export default ako;
+const ako = new Request({})
+
+export default ako
+
+// const ako: Http = {
+//   get(url, data, config) {
+//     return http.get(url, {
+//       params: data,
+//       ...config
+//     })
+//   },

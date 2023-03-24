@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { treeData, aniDB } from '@/const/treeData'
-// import aniDB from '@/const/treeData'
 import { tipsType } from '@/const/format'
 import { useResultStore } from '@/stores/result'
 import { useSearchStore } from '@/stores/search'
@@ -55,9 +54,9 @@ const handleSearch = async () => {
       }
     })
     resultStore.updateResultState(data)
-    tipsType()
+    tipsType(true, '搜索成功')
   } else {
-    tipsType(false)
+    tipsType(false, '搜索失败')
   }
   resultStore.isLoading = false
 }

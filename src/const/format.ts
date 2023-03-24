@@ -11,11 +11,11 @@ export const getPercent = (num: number): string => {
   return Math.round(num * 10000) / 100 + '%'
 }
 
-export const tipsType = (done: boolean = true) => {
+export const tipsType = (done: boolean, msg: string) => {
   if (done) {
     ElNotification.success({
       title: 'Success',
-      message: '搜索成功',
+      message: msg,
       position: 'top-right',
       offset: 220,
       duration: 3000,
@@ -24,7 +24,7 @@ export const tipsType = (done: boolean = true) => {
   } else {
     ElNotification.error({
       title: 'Error',
-      message: '搜索失败',
+      message: msg,
       position: 'top-right',
       offset: 20,
       duration: 3000,

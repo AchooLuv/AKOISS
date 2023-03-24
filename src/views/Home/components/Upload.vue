@@ -12,7 +12,7 @@ const handleOnChange = (uploadFile: UploadFile, uploadFiles: UploadFiles): void 
   const raw = uploadFile.raw
   if (typeof raw !== 'undefined') {
     imgSrc.value = URL.createObjectURL(raw)
-    // 更新带搜索图片信息
+    // 更新待搜索图片信息
     searchStore.updateImgRaw(raw, raw.type)
   }
 }
