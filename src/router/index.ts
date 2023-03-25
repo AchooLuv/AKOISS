@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import type { RouteRecordRaw } from 'vue-router'
 
-const Home = () => import('@/views/Home/Main.vue')
+const Home = () => import('@/views/Main/Index.vue')
 const NotFound = () => import('@/views/404/NotFound.vue')
 
 declare module 'vue-router' {

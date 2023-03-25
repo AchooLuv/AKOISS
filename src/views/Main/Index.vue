@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import UploadImage from '@/views/Home/components/Upload.vue'
-import TreeSeclet from '@/views/Home/components/Tree.vue'
-import ResultView from '@/views/Home/components/Result.vue'
+import UploadImage from '@/views/Main/components/Upload.vue'
+import TreeSeclet from '@/views/Main/components/Tree.vue'
+import ResultView from '@/views/Main/components/Result.vue'
 import { useResultStore } from '@/stores/result'
 
 const resultStore = useResultStore()
