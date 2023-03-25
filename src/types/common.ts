@@ -15,15 +15,16 @@ export type TipData = {
   status: boolean
 }[]
 
-export type AniDBType = {
-  id: number,
-  title: string
-}
-
 export type ResultType = {
-  anilist: number;
-  aniname?: string,
+  anilist?: {
+    id: number;
+    idMal: number;
+    title: { native: string; romaji: string | null; english: string | null };
+    synonyms: string[];
+    isAdult: boolean;
+  };
   filename: string;
+  aniname: string;
   episode: null | number;
   from: number;
   to: number;

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { treeData, aniDB } from '@/data/common'
+import { treeData } from '@/data/common'
 import { tipsType } from '@/data/format'
 import { useResultStore } from '@/stores/result'
 import { useSearchStore } from '@/stores/search'
@@ -40,16 +40,14 @@ const handleChecked = (node: Tree, checked: TreeNodeData) => {
 
 const handleSearch = async () => {
   resultStore.isLoading = true
-  // 转blob
-  const image = new Blob([searchStore.imgRaw as BlobPart], { type: searchStore.imgType }),
-    res = await searchStore.searchAction('/search', { image }, {
-      params: { cutBorders: paramsArr.includes('cutBorders') },
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
+  const res = await searchStore.searchAction('/search', { image: searchStore.imgRaw }, {
+    params: { anilistInfo: true, cutBorders: paramsArr.includes('cutBorders') },
+    headers: { 'Content-Type': 'multipart/form-data' }
+  })
   if (res.status === 200) {
     const data = res.data.result.filter((v: ResultType) => {
       if (v.similarity > 0.8) {
-        v.aniname = aniDB.get(v.anilist)
+        v.aniname = v.anilist?.title.native as string
         return v.similarity > 0.8
       }
     })

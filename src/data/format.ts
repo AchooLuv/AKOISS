@@ -7,10 +7,6 @@ export const getHMS = (stamp: number): string => {
   return time
 }
 
-export const getPercent = (num: number): number => {
-  return Math.round(num * 10000) / 100
-}
-
 export const tipsType = (done: boolean, msg: string) => {
   if (done) {
     ElNotification.success({

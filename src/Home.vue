@@ -46,48 +46,4 @@ const logoSrc = new URL('@/assets/images/logo.png', import.meta.url).href
 <style lang="scss">
 @import '@/assets/styles/reset.scss';
 @import '@/assets/styles/common.scss';
-
-.el-container {
-  width: 100vw;
-  height: 100vh;
-  background: url('@/assets/images/main.svg') no-repeat center 110px;
-  background-size: 100%;
-
-  .el-header {
-    border-bottom: 1px var(--el-border-color) var(--el-border-style);
-
-    .el-menu--horizontal {
-      border-bottom: none;
-
-      >.el-menu-item {
-        border-bottom: none;
-        height: 59px;
-
-        &:hover {
-          background: linear-gradient(90deg, rgb(159, 229, 151), rgb(204, 229, 129));
-        }
-
-        &:first-of-type {
-          background: none;
-        }
-
-        [class^=el-icon] {
-          margin: 0;
-        }
-      }
-    }
-  }
-
-  .el-main {
-    overflow: hidden;
-
-    .el-row:first-child {
-      margin-bottom: 20px;
-
-      .el-col {
-        padding: 5px;
-      }
-    }
-  }
-}
 </style>

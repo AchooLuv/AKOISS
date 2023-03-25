@@ -5,16 +5,18 @@ import ResultView from '@/views/Main/components/Result.vue'
 import AnimeInfos from '@/views/Anime/Index.vue'
 import { useResultStore } from '@/stores/result'
 
+import 'element-plus/theme-chalk/display.css'
+
 const resultStore = useResultStore()
 const imgSrc = new URL('@/assets/images/noData.jpg', import.meta.url).href
 </script>
 
 <template>
   <el-row justify="center" v-loading="resultStore.isLoading">
-    <el-col :span="5">
+    <el-col :xs="12" :sm="8" :md="6" :lg="5">
       <upload-image />
     </el-col>
-    <el-col :span="8" style="position: relative;">
+    <el-col :xs="12" :sm="10" :md="8" :lg="8" style="position: relative;">
       <tree-seclet />
     </el-col>
   </el-row>
@@ -29,7 +31,7 @@ const imgSrc = new URL('@/assets/images/noData.jpg', import.meta.url).href
   </el-divider>
   <el-scrollbar style="height: calc(100% - 255px);" :noresize="true">
     <el-row justify="center" v-loading="resultStore.isLoading">
-      <el-col :span="13">
+      <el-col :xs="24" :sm="18" :md="14" :lg="13">
         <div v-if="resultStore.resultState.length">
           <result-view />
         </div>

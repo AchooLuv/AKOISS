@@ -1,3 +1,4 @@
+// For 404
 .status-style {
   margin: 80px auto;
   width: 300px;
@@ -19,7 +20,44 @@
   }
 }
 
-.el-popper .el-popper__arrow::before {
-  background: linear-gradient(45deg, #b2e68d, #bce689);
-  right: 0;
+// For Home
+.el-container {
+  min-width: 1280px;
+  // width: 100vw;
+  height: 100vh;
+  background: url('@/assets/images/main.svg') no-repeat center 110px;
+  background-size: 100%;
+
+  .el-header {
+    border-bottom: 1px var(--el-border-color) var(--el-border-style);
+
+    .el-menu--horizontal {
+      border-bottom: none;
+
+      >.el-menu-item {
+        border-bottom: none;
+        height: 59px;
+
+        &:hover {
+          background: linear-gradient(90deg, rgb(159, 229, 151), rgb(204, 229, 129));
+        }
+
+        &:first-of-type {
+          background: none;
+        }
+
+        [class^=el-icon] {
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .el-main {
+    overflow: hidden;
+
+    >.el-row {
+      margin-bottom: 20px;
+    }
+  }
 }
