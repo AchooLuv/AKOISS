@@ -2,6 +2,7 @@
 import UploadImage from '@/views/Main/components/Upload.vue'
 import TreeSeclet from '@/views/Main/components/Tree.vue'
 import ResultView from '@/views/Main/components/Result.vue'
+import AnimeInfos from '@/views/Anime/Index.vue'
 import { useResultStore } from '@/stores/result'
 
 const resultStore = useResultStore()
@@ -36,6 +37,7 @@ const imgSrc = new URL('@/assets/images/noData.jpg', import.meta.url).href
       </el-col>
     </el-row>
   </el-scrollbar>
+  <anime-infos />
 </template>
 
 <style scoped></style>

@@ -50,6 +50,8 @@ const logoSrc = new URL('@/assets/images/logo.png', import.meta.url).href
 .el-container {
   width: 100vw;
   height: 100vh;
+  background: url('@/assets/images/main.svg') no-repeat center 110px;
+  background-size: 100%;
 
   .el-header {
     border-bottom: 1px var(--el-border-color) var(--el-border-style);

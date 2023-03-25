@@ -5,6 +5,7 @@ import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, Axi
 type Result<T> = {
   code: number;
   message: string;
+  data: T;
   result: T;
 };
 

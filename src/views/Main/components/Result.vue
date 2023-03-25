@@ -5,11 +5,6 @@ import { getHMS, getPercent } from '@/data/format'
 // store
 const resultStore = useResultStore()
 
-const handleAniInfos = async (name: string) => {
-  const res = await resultStore.animeAction('/v0/search/subjects', { keyword: name }, {
-    params: { limit: 10, offset: 0 }
-  })
-}
 </script>
 
 <template>
@@ -18,9 +13,6 @@ const handleAniInfos = async (name: string) => {
       <template #header>
         <div class="card-header">
           <el-text size="large">{{ ele.filename }}</el-text>
-          <el-button type="primary" color="#5a189a" @click.stop="handleAniInfos(ele.aniname as string)"><el-icon>
-              <Link />
-            </el-icon>Bangumi</el-button>
         </div>
       </template>
       <el-row :gutter="20" justify="space-between">
@@ -29,14 +21,16 @@ const handleAniInfos = async (name: string) => {
         </el-col>
         <el-col :span="13">
           <el-descriptions :column="1" size="small" border>
-            <el-descriptions-item label="匹配度" width="35" label-align="right">{{ getPercent(ele.similarity)
-            }}</el-descriptions-item>
-            <el-descriptions-item label="章/集数" label-align="right">{{ ele.episode }}</el-descriptions-item>
-            <el-descriptions-item label="时间" label-align="right">{{ getHMS(ele.from) }} -- {{ getHMS(ele.to)
-            }}</el-descriptions-item>
-            <el-descriptions-item label="链接" label-align="right">
-              <el-tag size="small">{{ ele.to }}</el-tag>
+            <el-descriptions-item label="番剧名" label-align="right">
+              <el-tag size="small" effect="dark">{{ ele.aniname }}</el-tag>
             </el-descriptions-item>
+            <el-descriptions-item label="匹配度" label-align="right">
+              <el-tag size="small" :type="ele.similarity > 0.9 ? 'success' : 'info'" effect="dark" round>
+                {{ (Math.round(ele.similarity * 10000) / 100) + '%' }}</el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="出现集数" label-align="right">{{ ele.episode }}</el-descriptions-item>
+            <el-descriptions-item label="出现时间" label-align="right">{{ getHMS(ele.from) }} -- {{ getHMS(ele.to)
+            }}</el-descriptions-item>
           </el-descriptions>
         </el-col>
       </el-row>
