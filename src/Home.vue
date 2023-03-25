@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { tipData } from '@/const/treeData'
+import { tipData } from '@/data/common'
 
 const logoSrc = new URL('@/assets/images/logo.png', import.meta.url).href
 </script>

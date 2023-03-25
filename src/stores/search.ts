@@ -1,13 +1,10 @@
 import ako from '@/utils/http'
 import { ref } from 'vue'
 import { defineStore } from 'pinia'
+import type { Self } from '@/types/common'
 import type { AxiosRequestConfig } from 'axios'
 
 type DataRaw = Blob | MediaSource | ArrayBuffer | string | null
-
-export type Self = {
-  [idx: string]: unknown
-}
 
 export const useSearchStore = defineStore('search', () => {
   const imgRaw = ref<DataRaw>()

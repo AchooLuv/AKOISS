@@ -1,15 +1,4 @@
-export interface Tree {
-  id: string
-  label: string
-  disabled?: boolean
-  children?: Tree[]
-}
-
-type TipData = {
-  type: string,
-  feature: string,
-  status: boolean
-}[]
+import type { Tree, TipData, AniDBType } from '@/types/common'
 
 export const tipData: TipData = [
   {
@@ -111,29 +100,6 @@ export const treeData: Tree[] = [
     ]
   }
 ]
-
-export type ResultType = {
-  anilist: number;
-  aniname?: string,
-  filename: string;
-  episode: null | number;
-  from: number;
-  to: number;
-  similarity: number;
-  video: string;
-  image: string;
-}
-
-export interface TraceMoeResponse {
-  frameCount: number;
-  error: string;
-  result: ResultType[];
-}
-
-type AniDBType = {
-  id: number,
-  title: string
-}
 
 const aniListDB: AniDBType[] = [
   { id: 1, title: "星際牛仔" },

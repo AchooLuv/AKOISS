@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useResultStore } from '@/stores/result'
-import { getHMS, getPercent } from '@/const/format'
+import { getHMS, getPercent } from '@/data/format'
 
 // store
 const resultStore = useResultStore()

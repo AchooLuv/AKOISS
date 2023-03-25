@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { tipsType } from '@/const/format'
+import { tipsType } from '@/data/format'
 import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, AxiosResponse } from 'axios'
 
 type Result<T> = {
