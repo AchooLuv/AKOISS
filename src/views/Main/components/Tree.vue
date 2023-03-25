@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { treeData, aniDB } from '@/data/common
+import { treeData, aniDB } from '@/data/common'
 import { tipsType } from '@/data/format'
 import { useResultStore } from '@/stores/result'
 import { useSearchStore } from '@/stores/search'
-import type { Tree, ResultType } from '@/data/common
+import type { Tree, ResultType } from '@/types/common'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 
 // store
