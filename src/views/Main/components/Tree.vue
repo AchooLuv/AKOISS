@@ -1,18 +1,22 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { treeData } from '@/data/common'
-import { tipsType } from '@/data/format'
+import { getParams, tipsType, iqdbParse, traceParse } from '@/data/format'
 import { useResultStore } from '@/stores/result'
 import { useSearchStore } from '@/stores/search'
+import { useIqdbStore } from '@/stores/iqdb'
 import type { Tree, ResultType } from '@/types/common'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 
 // store
+
 const searchStore = useSearchStore()
 const resultStore = useResultStore()
+const iqdbStore = useIqdbStore()
 // ref
 const isDisabled = ref(true)
 const treeRef = ref()
+// params
 let paramsArr = [] as string[]
 
 // methods
@@ -21,6 +25,7 @@ const handleChecked = (node: Tree, checked: TreeNodeData) => {
   const id = node.id
   const isParent = !!node.children
   let keys = checked.checkedKeys
+  // const len = keys.length  // 此处取值将会获取不到最新的len
   const isChecked = keys.includes(id)
   if (isParent && isChecked) {
     treeRef.value.setCheckedKeys([id])
@@ -34,27 +39,45 @@ const handleChecked = (node: Tree, checked: TreeNodeData) => {
     treeRef.value.setCheckedKeys(keys)
   }
   // 数据处理
-  if (keys.length > 1) paramsArr = keys.slice(1).map((v: string) => v.split('-')[1])
-  isDisabled.value = !keys.length || !searchStore.imgRaw
+  const len = keys.length  // 天坑，len只能在这儿取
+  if (len) resultStore.updateEngineState(keys[0])
+  paramsArr = []
+  if (len > 1) paramsArr = keys.slice(1).map((v: string) => v.split('-')[1]).filter((v: any) => v != null)
+  isDisabled.value = !len || !searchStore.imgRaw
 }
 
 const handleSearch = async () => {
   resultStore.isLoading = true
-  const res = await searchStore.searchAction('/search', { image: searchStore.imgRaw }, {
-    params: { anilistInfo: true, cutBorders: paramsArr.includes('cutBorders') },
-    headers: { 'Content-Type': 'multipart/form-data' }
-  })
-  if (res.status === 200) {
-    const data = res.data.result.filter((v: ResultType) => {
-      if (v.similarity > 0.8) {
-        v.aniname = v.anilist?.title.native as string
-        return v.similarity > 0.8
-      }
+  if (resultStore.engineType === 'iqdb') {
+    const res = await iqdbStore.searchAction('iqdb', {
+      service: [1, 2, 3, 4, 5, 6, 11, 13],
+      file: searchStore.imgRaw,
+      ...(getParams(paramsArr, true))
+    }, {
+      headers: { 'Content-Type': 'multipart/form-data' }
     })
-    resultStore.updateResultState(data)
-    tipsType(true, '搜索成功')
-  } else {
-    tipsType(false, '搜索失败')
+    if (res.status === 200) {
+      const data = iqdbParse(`${res.data}`)
+      resultStore.updateResultState(data)
+      tipsType(true, '搜索成功')
+    } else {
+      tipsType(false, '搜索失败')
+    }
+  } else if (resultStore.engineType === 'tracemoe') {
+    const res = await searchStore.searchAction('trace/search', { image: searchStore.imgRaw }, {
+      params: {
+        anilistInfo: true,
+        ...(getParams(paramsArr, false))
+      },
+      headers: { 'Content-Type': 'multipart/form-data' }
+    })
+    if (res.status === 200) {
+      const data = traceParse(res.data.result)
+      resultStore.updateResultState(data)
+      tipsType(true, '搜索成功')
+    } else {
+      tipsType(false, '搜索失败')
+    }
   }
   resultStore.isLoading = false
 }

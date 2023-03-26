@@ -4,7 +4,7 @@ export const tipData: TipData = [
   {
     type: 'IQDB',
     feature: '*',
-    status: false
+    status: true
   },
   {
     type: 'ASCII2D',
@@ -32,12 +32,10 @@ export const treeData: Tree[] = [
   {
     id: 'iqdb',
     label: 'IQDB',
-    disabled: true,
     children: [
       {
-        id: 'iqdb-1',
-        label: '除去颜色',
-        disabled: true,
+        id: 'iqdb-forcegray',
+        label: '忽略色彩',
       }
     ]
   },
@@ -63,15 +61,15 @@ export const treeData: Tree[] = [
     disabled: true,
     children: [
       {
-        id: 'ehentai-1',
+        id: 'ehentai-cover',
         label: '封面',
         disabled: true,
       }, {
-        id: 'ehentai-2',
+        id: 'ehentai-similar',
         label: '相似内容',
         disabled: true,
       }, {
-        id: 'ehentai-3',
+        id: 'ehentai-deleted',
         label: '已删除的内容',
         disabled: true,
       },

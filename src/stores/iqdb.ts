@@ -1,12 +1,12 @@
 import ako from '@/utils/http'
-import { ref } from 'vue'
-import { defineStore } from 'pinia'
+import { ref } from 'vue';
+import { defineStore } from 'pinia';
 import type { Self } from '@/types/common'
 import type { AxiosRequestConfig } from 'axios'
 
 type DataRaw = Blob | MediaSource | ArrayBuffer | string | null
 
-export const useSearchStore = defineStore('search', () => {
+export const useIqdbStore = defineStore('iqdb', () => {
   const imgRaw = ref<DataRaw>()
   const imgType = ref<string>()
   function searchAction(path: string, payload?: Self, config?: AxiosRequestConfig) {

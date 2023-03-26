@@ -23,14 +23,17 @@ export type ResultType = {
     synonyms: string[];
     isAdult: boolean;
   };
-  filename: string;
-  aniname: string;
-  episode: null | number;
-  from: number;
-  to: number;
+  filename?: string;
+  aniname?: string;
+  episode?: number;
+  from?: number;
+  to?: number;
   similarity: number;
-  video: string;
+  video?: string;
   image: string;
+  url?: string;
+  size?: string;
+  level?: string;
 }
 
 export interface TraceMoeResponse {
