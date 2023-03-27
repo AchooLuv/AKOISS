@@ -26,10 +26,9 @@ const logoSrc = new URL('@/assets/images/logo.png', import.meta.url).href
               <el-table-column width="100px" property="feature" label="搜索类型" />
               <el-table-column width="60px" property="status" label="状态" align="center">
                 <template #default="scope">
-                  <el-tag :type="scope.row.status ? 'success' : 'info'" size="small" round>{{
-                    scope.row.status ?
-                    '已部署' :
-                    '开发中' }}</el-tag>
+                  <el-tag size="small" round
+                    :type="scope.row.status < 0 ? 'danger' : scope.row.status > 0 ? 'success' : 'info'">{{
+                      scope.row.status < 0 ? '已禁用' : scope.row.status > 0 ? '已部署' : '开发中' }}</el-tag>
                 </template>
               </el-table-column>
             </el-table>

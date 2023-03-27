@@ -4,27 +4,27 @@ export const tipData: TipData = [
   {
     type: 'IQDB',
     feature: '*',
-    status: true
+    status: 1
   },
   {
     type: 'ASCII2D',
     feature: '二次元、pixiv',
-    status: false
+    status: 0
   },
   {
     type: 'EHENTAI',
     feature: 'R18、本子',
-    status: false
+    status: -1
   },
   {
     type: 'TRACEMOE',
     feature: '番剧',
-    status: true
+    status: 1
   },
   {
     type: 'SAUCENAO',
     feature: '*',
-    status: false
+    status: 0
   },
 ]
 

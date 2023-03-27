@@ -7,8 +7,8 @@ export const useResultStore = defineStore('rews', () => {
   const engineType = ref<string>()
   const resultState = reactive<ResultType[]>([])
 
-  function updateResultState(payload: ResultType[]) {
-    resultState.splice(0, 1, ...payload)
+  function updateResultState(payload: ResultType[], idx: number = 1) {
+    resultState.splice(0, idx, ...payload)
   }
 
   function updateEngineState(payload: string) {

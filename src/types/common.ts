@@ -12,7 +12,7 @@ export interface Tree {
 export type TipData = {
   type: string,
   feature: string,
-  status: boolean
+  status: -1 | 0 | 1,  // -1：禁用 0：开发中 1：已部署
 }[]
 
 export type ResultType = {
