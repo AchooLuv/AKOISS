@@ -12,7 +12,7 @@ type Result<T> = {
 
 export class Request {
   instance: AxiosInstance;
-  baseConfig: AxiosRequestConfig = { baseURL: 'http://localhost:5173/', timeout: 60000 };
+  baseConfig: AxiosRequestConfig = { baseURL: import.meta.env.BASE_URL, timeout: 60000 };
 
   constructor(config: AxiosRequestConfig) {
     this.instance = axios.create(Object.assign(this.baseConfig, config));
