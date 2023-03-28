@@ -15,8 +15,8 @@ module.exports = (req, res) => {
     target: target,
     changeOrigin: true,
     pathRewrite: {
-      '^/iqdb/': '/',
-      '^/trace/': '/'
+      '^/iqdb/': '',
+      '^/trace/': ''
     }
   })(req, res)
 }
