@@ -5,7 +5,7 @@
       "destination": "/index.html"
     },
     {
-      "source": "/notion-api/(.*)",
+      "source": "/iqdb/(.*)",
       "destination": "/api/proxy"
     }
   ]
