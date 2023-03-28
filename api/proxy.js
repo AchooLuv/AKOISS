@@ -12,7 +12,7 @@ module.exports = (req, res) => {
   }
 
   createProxyMiddleware({
-    target,
+    target: target,
     changeOrigin: true,
     pathRewrite: {
       '^/iqdb/': '/',
