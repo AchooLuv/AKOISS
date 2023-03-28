@@ -3,11 +3,11 @@ const { createProxyMiddleware } = require('http-proxy-middleware')
 module.exports = (req, res) => {
   let target = ''
   // IQDB
-  if (req.url.startWith('/iqdb')) {
+  if (req.url.startsWith('/iqdb')) {
     target = 'http://iqdb.org/'
   }
   // TRACEMOE
-  if (req.url.startWith('/trace')) {
+  if (req.url.startsWith('/trace')) {
     target = 'https://api.trace.moe/'
   }
 
@@ -16,7 +16,7 @@ module.exports = (req, res) => {
     changeOrigin: true,
     pathRewrite: {
       '^/iqdb/': '/',
-      '/trace/': '/'
+      '^/trace/': '/'
     }
   })(req, res)
 }
