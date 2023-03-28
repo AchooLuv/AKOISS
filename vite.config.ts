@@ -11,19 +11,19 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  server: {
-    cors: true,
-    proxy: {
-      '/iqdb': {
-        target: 'http://iqdb.org/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/iqdb/, '')
-      },
-      '/trace': {
-        target: 'https://api.trace.moe/',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/trace/, ''),
-      },
-    }
-  }
+  // server: {
+  //   cors: true,
+  //   proxy: {
+  //     '/iqdb': {
+  //       target: 'http://iqdb.org/',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/iqdb/, '')
+  //     },
+  //     '/trace': {
+  //       target: 'https://api.trace.moe/',
+  //       changeOrigin: true,
+  //       rewrite: (path) => path.replace(/^\/trace/, ''),
+  //     },
+  //   }
+  // }
 })
