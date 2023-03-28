@@ -18,5 +18,5 @@ module.exports = (req, res) => {
       '^/iqdb/': '/',
       '/trace/': '/'
     }
-  })
+  })(req, res)
 }
