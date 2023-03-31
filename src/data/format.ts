@@ -53,8 +53,8 @@ export const iqdbParse = (body: string) => {
       [, size] = content.match(/(\d+×\d+)/) ?? [];
 
     return {
-      url: new URL(link.attribs.href, 'http://iqdb.org/').toString(),
-      image: new URL(image.attribs.src, 'http://iqdb.org/').toString(),
+      url: new URL(link.attribs.href, 'https://iqdb.org/').toString(),
+      image: new URL(image.attribs.src, 'https://iqdb.org/').toString(),
       similarity: parseFloat(similarity),
       size: size,
       level: level,

@@ -4,7 +4,7 @@ module.exports = (req, res) => {
   let target = ''
   // IQDB
   if (req.url.startsWith('/iqdb')) {
-    target = 'http://iqdb.org'
+    target = 'https://iqdb.org'
   }
   // TRACEMOE
   if (req.url.startsWith('/trace')) {
