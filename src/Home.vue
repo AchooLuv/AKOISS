@@ -12,7 +12,9 @@ const logoSrc = new URL('@/assets/images/logo.png', import.meta.url).href
           <el-image :src="logoSrc" alt="logo-img" fit="fill" style="width:196px; height:59px;" />
         </el-menu-item>
         <div style="flex-grow: 1;"></div>
-        <el-menu-item index="/404">RegExpJS Docs</el-menu-item>
+        <el-menu-item index="/">
+          <el-link href="https://rejs.muri.life/" target="_blank" :underline="false">RegExpJS Docs</el-link>
+        </el-menu-item>
         <el-menu-item index="/">
           <el-popover placement="bottom-end" :width="267">
             <template #reference>

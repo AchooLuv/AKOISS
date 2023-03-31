@@ -1,7 +1,11 @@
 {
   "rewrites": [
     {
-      "source": "/iqdb/(.*)",
+      "source": "/iqdb(.*)",
+      "destination": "/api/proxy"
+    },
+    {
+      "source": "/trace/(.*)",
       "destination": "/api/proxy"
     },
     {

@@ -15,12 +15,12 @@ export default defineConfig({
     cors: true,
     proxy: {
       '/iqdb': {
-        target: 'http://iqdb.org/',
+        target: 'http://iqdb.org',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/iqdb/, '')
       },
       '/trace': {
-        target: 'https://api.trace.moe/',
+        target: 'https://api.trace.moe',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/trace/, ''),
       },

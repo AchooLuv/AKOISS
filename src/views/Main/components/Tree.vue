@@ -8,6 +8,7 @@ import { useIqdbStore } from '@/stores/iqdb'
 import type { Tree } from '@/types/common'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
 
+import axios from 'axios'
 // store
 
 const searchStore = useSearchStore()
@@ -51,8 +52,9 @@ const handleSearch = async () => {
   resultStore.updateEngineState(engineType.value)
   resultStore.isLoading = true
   resultStore.updateResultState([], 100)
+
   if (engineType.value === 'iqdb') {
-    const res = await iqdbStore.searchAction('iqdb', {
+    const res = await iqdbStore.searchAction('/iqdb', {
       service: [1, 2, 3, 4, 5, 6, 11, 13],
       file: searchStore.imgRaw,
       ...(getParams(paramsArr, true))
@@ -67,7 +69,7 @@ const handleSearch = async () => {
       tipsType(false, '搜索失败')
     }
   } else if (engineType.value === 'tracemoe') {
-    const res = await searchStore.searchAction('trace/search', { image: searchStore.imgRaw }, {
+    const res = await searchStore.searchAction('/trace/search', { image: searchStore.imgRaw }, {
       params: {
         anilistInfo: true,
         ...(getParams(paramsArr, false))
