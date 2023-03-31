@@ -7,16 +7,15 @@ module.exports = (req, res) => {
     target = 'http://iqdb.org/'
   }
   // TRACEMOE
-  if (req.url.startsWith('/trace')) {
-    target = 'https://api.trace.moe/'
-  }
+  // if (req.url.startsWith('/trace')) {
+  //   target = 'https://api.trace.moe/'
+  // }
 
   createProxyMiddleware({
     target: target,
     changeOrigin: true,
     pathRewrite: {
-      '^/iqdb/': '',
-      '^/trace/': ''
+      '^/iqdb/': '/'
     }
   })(req, res)
 }

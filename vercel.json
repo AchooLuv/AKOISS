@@ -1,12 +1,12 @@
 {
   "rewrites": [
     {
-      "source": "/:path*",
-      "destination": "/index.html"
-    },
-    {
       "source": "/iqdb/(.*)",
       "destination": "/api/proxy"
+    },
+    {
+      "source": "/:path*",
+      "destination": "/index.html"
     }
   ]
 }
