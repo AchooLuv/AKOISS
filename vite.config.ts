@@ -23,7 +23,7 @@ export default defineConfig({
         target: 'https://api.trace.moe',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/trace/, ''),
-      },
+      }
     }
   }
 })

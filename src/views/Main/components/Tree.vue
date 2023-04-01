@@ -7,8 +7,6 @@ import { useSearchStore } from '@/stores/search'
 import { useIqdbStore } from '@/stores/iqdb'
 import type { Tree } from '@/types/common'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
-
-import axios from 'axios'
 // store
 
 const searchStore = useSearchStore()
@@ -57,7 +55,7 @@ const handleSearch = async () => {
     const res = await iqdbStore.searchAction('/iqdb', {
       service: [1, 2, 3, 4, 5, 6, 11, 13],
       file: searchStore.imgRaw,
-      ...(getParams(paramsArr, true))
+      ...(getParams(paramsArr, engineType.value))
     }, {
       headers: { 'Content-Type': 'multipart/form-data' }
     })
@@ -72,7 +70,7 @@ const handleSearch = async () => {
     const res = await searchStore.searchAction('/trace/search', { image: searchStore.imgRaw }, {
       params: {
         anilistInfo: true,
-        ...(getParams(paramsArr, false))
+        ...(getParams(paramsArr, engineType.value))
       },
       headers: { 'Content-Type': 'multipart/form-data' }
     })

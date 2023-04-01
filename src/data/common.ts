@@ -45,11 +45,11 @@ export const treeData: Tree[] = [
     disabled: true,
     children: [
       {
-        id: 'ascii2d-1',
+        id: 'ascii2d-color',
         label: '按色彩检索',
         disabled: true,
       }, {
-        id: 'ascii2d-2',
+        id: 'ascii2d-bovw',
         label: '按特征检索',
         disabled: true,
       }
@@ -91,7 +91,7 @@ export const treeData: Tree[] = [
     disabled: true,
     children: [
       {
-        id: 'saucenao-1',
+        id: 'saucenao-hide',
         label: '隐藏敏感内容',
         disabled: true,
       }

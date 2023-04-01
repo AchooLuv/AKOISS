@@ -4,10 +4,16 @@ import { ElNotification } from 'element-plus'
 
 import type { Self, ResultType } from '@/types/common'
 
-export const getParams = (data: string[], type: boolean) => {
+export const getParams = (data: string[], type: string) => {
   const params = {} as Self
   data.length && data.forEach((v: string) => {
-    type ? params[v] = 'on' : params[v] = true
+    switch (type) {
+      case 'iqdb':
+        params[v] = 'on'
+        break
+      default:
+        params[v] = true
+    }
   })
   return params
 }
