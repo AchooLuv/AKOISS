@@ -1,7 +1,6 @@
 import * as cheerio from 'cheerio';
 import * as _ from 'lodash';
 import { ElNotification } from 'element-plus'
-
 import type { Self, ResultType } from '@/types/common'
 
 export const getParams = (data: string[], type: string) => {

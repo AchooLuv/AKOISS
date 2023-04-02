@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { tipsType } from '@/data/format'
+import { useResultStore } from '@/stores/result'
 import type { AxiosInstance, AxiosRequestConfig, InternalAxiosRequestConfig, AxiosResponse } from 'axios'
+
+const resultStore = useResultStore()
 
 type Result<T> = {
   code: number;
@@ -19,6 +22,7 @@ export class Request {
 
     this.instance.interceptors.request.use(
       (config: InternalAxiosRequestConfig) => {
+        config.headers['Content-Type'] = 'multipart/form-data'
         return config;
       },
       (err: any) => {
@@ -69,6 +73,7 @@ export class Request {
           default:
             message = `连接出错(${err.response.status})!`;
         }
+        resultStore.isLoading = false
         tipsType(false, message)
         return Promise.reject(err.response);
       }

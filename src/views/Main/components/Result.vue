@@ -37,7 +37,8 @@ const resultStore = useResultStore()
       </el-row>
       <el-row v-if="resultStore.engineType === 'iqdb'" :gutter="20" justify="space-between">
         <el-col :span="9">
-          <el-image :src="ele.image as string" alt="preview-img" fit="cover" style="width:228px; height:128px;" lazy />
+          <el-image :src="ele.image as string" alt="preview-img" fit="scale-down" style="width:228px; height:128px;"
+            lazy />
         </el-col>
         <el-col :span="13">
           <el-descriptions :column="1" size="small" border>

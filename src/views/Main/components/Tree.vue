@@ -2,16 +2,14 @@
 import { ref } from 'vue'
 import { treeData } from '@/data/common'
 import { getParams, tipsType, iqdbParse, traceParse } from '@/data/format'
-import { useResultStore } from '@/stores/result'
 import { useSearchStore } from '@/stores/search'
-import { useIqdbStore } from '@/stores/iqdb'
+import { useResultStore } from '@/stores/result'
 import type { Tree } from '@/types/common'
 import type { TreeNodeData } from 'element-plus/es/components/tree/src/tree.type'
-// store
 
+// store
 const searchStore = useSearchStore()
 const resultStore = useResultStore()
-const iqdbStore = useIqdbStore()
 // ref
 const isDisabled = ref(true)
 const treeRef = ref()
@@ -50,38 +48,35 @@ const handleSearch = async () => {
   resultStore.updateEngineState(engineType.value)
   resultStore.isLoading = true
   resultStore.updateResultState([], 100)
-
-  if (engineType.value === 'iqdb') {
-    const res = await iqdbStore.searchAction('/iqdb', {
-      service: [1, 2, 3, 4, 5, 6, 11, 13],
-      file: searchStore.imgRaw,
-      ...(getParams(paramsArr, engineType.value))
-    }, {
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-    if (res.status === 200) {
-      const data = iqdbParse(`${res.data}`)
-      resultStore.updateResultState(data)
-      tipsType(true, '搜索成功')
-    } else {
-      tipsType(false, '搜索失败')
-    }
-  } else if (engineType.value === 'tracemoe') {
-    const res = await searchStore.searchAction('/trace/search', { image: searchStore.imgRaw }, {
-      params: {
-        anilistInfo: true,
+  let result
+  switch (engineType.value) {
+    case 'iqdb':
+      result = await searchStore.searchAction('/iqdb', {
+        service: [1, 2, 3, 4, 5, 6, 11, 13],
+        file: searchStore.imgRaw,
         ...(getParams(paramsArr, engineType.value))
-      },
-      headers: { 'Content-Type': 'multipart/form-data' }
-    })
-    if (res.status === 200) {
-      const data = traceParse(res.data.result)
-      resultStore.updateResultState(data)
-      tipsType(true, '搜索成功')
-    } else {
-      tipsType(false, '搜索失败')
-    }
+      })
+      break
+    default:
+      result = await searchStore.searchAction('/trace/search', {
+        image: searchStore.imgRaw
+      }, {
+        params: {
+          anilistInfo: true,
+          ...(getParams(paramsArr, engineType.value))
+        }
+      })
   }
+
+  if (result.status === 200) {
+    const data = engineType.value === 'iqdb' ?
+      iqdbParse(`${result.data}`) : traceParse(result.data.result)
+    resultStore.updateResultState(data)
+    tipsType(true, '搜索成功')
+  } else {
+    tipsType(false, '搜索失败')
+  }
+
   resultStore.isLoading = false
 }
 </script>
