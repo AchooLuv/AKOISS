@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue'
+import { useResultStore } from '@/stores/result'
 import UploadImage from '@/views/Main/components/Upload.vue'
 import TreeSeclet from '@/views/Main/components/Tree.vue'
-import ResultView from '@/views/Main/components/Result.vue'
-import AnimeInfos from '@/views/Anime/Index.vue'
-import { useResultStore } from '@/stores/result'
-
 import 'element-plus/theme-chalk/display.css'
 
+const ResultView = defineAsyncComponent(() => import('@/views/Main/components/Result.vue'))
+const AnimeInfos = defineAsyncComponent(() => import('@/views/Anime/Index.vue'))
 const resultStore = useResultStore()
 const imgSrc = new URL('@/assets/images/noData.jpg', import.meta.url).href
 </script>
