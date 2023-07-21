@@ -1,3 +1,5 @@
+# 该项目已停止更新！
+
 ## AKO Image Source Search
 
 `Vite` + `Pinia` + `TypeScript`
