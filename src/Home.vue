@@ -45,6 +45,6 @@ const logoSrc = new URL('@/assets/images/logo.png', import.meta.url).href
 </template>
 
 <style lang="scss">
-@import '@/assets/styles/reset.scss';
-@import '@/assets/styles/common.scss';
+@use '@/assets/styles/reset';
+@use '@/assets/styles/common';
 </style>
