@@ -1,12 +1,14 @@
 {
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
-    "verbatimModuleSyntax": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["element-plus/global"]
+    "types": ["element-plus/global"],
+    "module": "esnext",
+    "target": "esnext",
+    "moduleResolution": "node"
   },
 
   "references": [
