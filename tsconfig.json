@@ -1,15 +1,12 @@
 {
-  "extends": "@vue/tsconfig/tsconfig.web.json",
   "include": ["env.d.ts", "src/**/*", "src/**/*.vue"],
   "compilerOptions": {
+    "verbatimModuleSyntax": true,
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": [
-      "element-plus/global"
-    ],
-    "ignoreDeprecations": "5.0"
+    "types": ["element-plus/global"]
   },
 
   "references": [
